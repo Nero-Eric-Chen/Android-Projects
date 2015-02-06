@@ -33,6 +33,8 @@ public class ImagesActivity extends Activity {
         lvImage.setAdapter(imageArrayAdapter);
         lvImage.setOnItemClickListener(onItemClickListener);
         lvImage.setOnItemSelectedListener(onItemSelectedListener);
+
+
     }
 
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
