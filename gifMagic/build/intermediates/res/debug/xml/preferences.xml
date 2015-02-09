@@ -38,4 +38,4 @@
                 android:summary="@string/preference_accounts_click"/>
 	</PreferenceCategory> -->
 
-</PreferenceScreen><!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/xml/preferences.xml -->
+</PreferenceScreen><!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/xml/preferences.xml -->

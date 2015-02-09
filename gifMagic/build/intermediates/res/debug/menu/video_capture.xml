@@ -3,4 +3,4 @@
 	<item android:id="@+id/menu_vcapture_setting" android:title="@string/menu_setting" android:icon="@android:drawable/ic_menu_preferences">
 	</item>
 </menu>
-<!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/menu/video_capture.xml -->
+<!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/menu/video_capture.xml -->

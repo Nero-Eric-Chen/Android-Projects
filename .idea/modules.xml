@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Android-Projects.iml" filepath="$PROJECT_DIR$/Android-Projects.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyApplication.iml" filepath="$PROJECT_DIR$/MyApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidcommon/androidcommon.iml" filepath="$PROJECT_DIR$/androidcommon/androidcommon.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gifMagic/gifMagic.iml" filepath="$PROJECT_DIR$/gifMagic/gifMagic.iml" />
     </modules>
   </component>
 </project>

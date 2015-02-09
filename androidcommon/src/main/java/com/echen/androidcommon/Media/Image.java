@@ -1,5 +1,7 @@
 package com.echen.androidcommon.Media;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by echen on 2015/1/27.
  */

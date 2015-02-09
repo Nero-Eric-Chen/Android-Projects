@@ -2,6 +2,7 @@ package com.echen.androidcommon.Media;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.provider.MediaStore;
 
 import java.util.ArrayList;

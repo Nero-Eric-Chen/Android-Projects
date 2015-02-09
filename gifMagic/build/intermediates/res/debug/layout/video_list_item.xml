@@ -7,4 +7,4 @@
 	<TextView android:id="@+id/video_item_name"
 		android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5dp"/>
 </LinearLayout>
-<!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/layout/video_list_item.xml -->
+<!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/layout/video_list_item.xml -->

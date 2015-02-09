@@ -3,4 +3,4 @@
     <item android:state_checked="true"
         android:drawable="@drawable/setting_2" />
     <item android:drawable="@drawable/setting_b_2" />
-</selector><!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/drawable/bg_toggle_quality_m.xml -->
+</selector><!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/drawable/bg_toggle_quality_m.xml -->

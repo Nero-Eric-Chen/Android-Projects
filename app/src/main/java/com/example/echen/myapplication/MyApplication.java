@@ -2,11 +2,14 @@ package com.example.echen.myapplication;
 
 import android.app.Application;
 
+import com.echen.androidcommon.CrashHandler;
+
 /**
  * Created by echen on 2015/1/14.
  */
 public class MyApplication extends Application {
     private static MyApplication singleton;
+    private Thread.UncaughtExceptionHandler uncaughtExceptionHandler;
 
     public static MyApplication getInstance(){
         return singleton;
@@ -15,6 +18,8 @@ public class MyApplication extends Application {
     @Override
     public final void onCreate() {
         super.onCreate();
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(this);
         singleton = this;
     }
 }

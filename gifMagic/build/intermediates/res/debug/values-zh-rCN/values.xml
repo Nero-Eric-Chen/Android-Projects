@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/values-zh-rCN/umeng_analyse_strings.xml -->
+    <!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/values-zh-rCN/umeng_analyse_strings.xml -->
     <eat-comment/>
     <string-array name="UMageList">
 		<item>年龄</item>
@@ -18,16 +18,16 @@
 		<item>男</item>
 		<item>女</item>
 	</string-array>
-    <!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/values-zh-rCN/arrays.xml -->
+    <!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/values-zh-rCN/arrays.xml -->
     <eat-comment/>
     <string-array name="photo_album_types">
 		<item>选择图片</item>
 		<item>选择视频</item>
 	</string-array>
-    <!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/values-zh-rCN/strings.xml -->
+    <!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/values-zh-rCN/strings.xml -->
     <eat-comment/>
     <string name="PREF_LANGUAGE">PREF_LANGUAGE</string>
-    <!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/values-zh-rCN/umeng_analyse_strings.xml -->
+    <!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/values-zh-rCN/umeng_analyse_strings.xml -->
     <eat-comment/>
     <string name="UMAppUpdate">应用更新</string>
     <string name="UMBreak_Network">未联网</string>
@@ -62,7 +62,7 @@
     <string name="UMUpdatingNow">正在更新GifMagic...</string>
     <string name="UMViewFeedback">查看反馈</string>
     <string name="UMViewThread">查看反馈</string>
-    <!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/values-zh-rCN/strings.xml -->
+    <!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/values-zh-rCN/strings.xml -->
     <eat-comment/>
     <string name="about_us">关于我们</string>
     <string name="about_us1">我是Jecf Bags.  来自杭州。\n\n这个软件做的很认真。不管你信不信。反正我是信了。</string>

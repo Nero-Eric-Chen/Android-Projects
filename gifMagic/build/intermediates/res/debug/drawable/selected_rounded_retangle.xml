@@ -5,4 +5,4 @@
 	<corners android:radius="0dp" />
 	<padding android:left="2dp" android:top="2dp" android:right="2dp"
 		android:bottom="2dp" />
-</shape><!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/drawable/selected_rounded_retangle.xml -->
+</shape><!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/drawable/selected_rounded_retangle.xml -->

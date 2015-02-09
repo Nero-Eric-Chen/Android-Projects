@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/values/umeng_analyse_strings.xml -->
+    <!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/values/umeng_analyse_strings.xml -->
     <eat-comment/>
     <string-array name="UMageList">
 		<item>Age</item>
@@ -18,7 +18,7 @@
 		<item>Male</item>
 		<item>Female</item>
 	</string-array>
-    <!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/values/arrays.xml -->
+    <!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/values/arrays.xml -->
     <eat-comment/>
     <string-array name="language_entries_list">
 		<item>English</item>
@@ -32,7 +32,7 @@
 		<item>Select photo</item>
 		<item>Select video</item>
 	</string-array>
-    <!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/values/colors.xml -->
+    <!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="background">#F6F6F6</color>
     <color name="folder_color">#FFF7B2</color>
@@ -41,10 +41,10 @@
     <color name="photo_blank_color">#3E3E3E</color>
     <color name="setting_text_color">#000000</color>
     <color name="titlebar_color">#F5F5F5</color>
-    <!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="PREF_LANGUAGE">PREF_LANGUAGE</string>
-    <!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/values/umeng_analyse_strings.xml -->
+    <!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/values/umeng_analyse_strings.xml -->
     <eat-comment/>
     <string name="UMAppUpdate">GifMagic updating</string>
     <string name="UMBreak_Network">Please make sure you are connected to internet,
@@ -82,7 +82,7 @@
     <string name="UMUpdatingNow">Updating GifMagic...</string>
     <string name="UMViewFeedback">View Feedback</string>
     <string name="UMViewThread">View Thread</string>
-    <!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="about_us">About us</string>
     <string name="about_us1">My name is Jecf Bags from Hangzhou,China.\n\nTo make pictures flow.\n\nTo ignite life.</string>
@@ -255,7 +255,7 @@
     <string name="weibo_edit_text_hint">Share Pictures</string>
     <string name="weibo_service_or_network_is_unavailable">Weibo service or network is unavailable</string>
     <string name="zh_CN">中文 ，国庆终极版\n国庆，你玩着呢还是宅着呢</string>
-    <!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/values/customTheme.xml -->
+    <!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/values/customTheme.xml -->
     <eat-comment/>
     <style name="@android:style/Widget.CompoundButton.CheckBox">
 		<item name="android:background">@android:drawable/btn_check_label_background/</item>

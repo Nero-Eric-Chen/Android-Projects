@@ -6,4 +6,4 @@
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:numColumns="auto_fit" android:verticalSpacing="10dp"
 		android:horizontalSpacing="10dp" android:gravity="center" />
-</LinearLayout><!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/layout/photo_album_view.xml -->
+</LinearLayout><!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/layout/photo_album_view.xml -->

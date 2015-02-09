@@ -10,4 +10,4 @@
 				android:id="@+id/web_view">
    </WebView>
    
- </ScrollView><!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/layout/web_view.xml -->
+ </ScrollView><!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/layout/web_view.xml -->

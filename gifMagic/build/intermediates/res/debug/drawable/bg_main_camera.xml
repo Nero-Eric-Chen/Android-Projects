@@ -3,4 +3,4 @@
 	<item android:state_pressed="true" android:drawable="@drawable/m01_2" />
 	<item android:state_focused="true" android:drawable="@drawable/m01_2" />
 	<item android:drawable="@drawable/m01_1" />
-</selector><!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/drawable/bg_main_camera.xml -->
+</selector><!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/drawable/bg_main_camera.xml -->

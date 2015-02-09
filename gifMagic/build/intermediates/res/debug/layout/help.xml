@@ -23,4 +23,4 @@
 		android:gravity="center_horizontal" android:layout_alignParentBottom="true"
 		android:layout_centerHorizontal="true" android:layout_marginBottom="20dp" />
 </RelativeLayout>
-<!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/layout/help.xml -->
+<!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/layout/help.xml -->

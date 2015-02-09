@@ -3,4 +3,4 @@
 	<item android:state_pressed="false" android:drawable="@drawable/preview_normal" />
 	<item android:state_pressed="true" android:drawable="@drawable/preview_press" />
 </selector>
-<!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/drawable/image_preview_selector.xml -->
+<!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/drawable/image_preview_selector.xml -->

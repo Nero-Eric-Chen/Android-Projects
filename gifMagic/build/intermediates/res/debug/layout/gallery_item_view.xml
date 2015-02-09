@@ -25,4 +25,4 @@
 	android:visibility="visible"
 	android:background="@drawable/checkbox_background"
 	android:button="@drawable/checkbox" />
-</RelativeLayout><!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/layout/gallery_item_view.xml -->
+</RelativeLayout><!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/layout/gallery_item_view.xml -->

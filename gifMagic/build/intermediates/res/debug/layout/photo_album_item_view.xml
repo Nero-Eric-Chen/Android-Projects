@@ -29,4 +29,4 @@
 	</RelativeLayout>
 	<TextView android:id="@+id/desc" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" />
-</LinearLayout><!-- From: file:/E:/Projects/branches/Android/MyApplication/gifMagic/src/main/res/layout/photo_album_item_view.xml -->
+</LinearLayout><!-- From: file:/E:/GitHub/Android-Projects/gifMagic/src/main/res/layout/photo_album_item_view.xml -->

@@ -12,6 +12,7 @@ import android.widget.SimpleAdapter;
 import com.echen.androidcommon.Media.IMediaProvider;
 import com.echen.androidcommon.Media.Image;
 import com.echen.androidcommon.Media.ImageProvider;
+import com.example.echen.myapplication.Adapter.ImageAdapter;
 
 import java.util.List;
 
@@ -29,10 +30,14 @@ public class ImagesActivity extends Activity {
         ListView lvImage = (ListView)findViewById(R.id.lvImage);
         IMediaProvider providerImage = new ImageProvider(this);
         List<?> list = providerImage.getList();
-        ArrayAdapter<?> imageArrayAdapter = new ArrayAdapter<Image>(this, android.R.layout.simple_expandable_list_item_1,(List<Image>)list);
-        lvImage.setAdapter(imageArrayAdapter);
-        lvImage.setOnItemClickListener(onItemClickListener);
-        lvImage.setOnItemSelectedListener(onItemSelectedListener);
+//        ArrayAdapter<?> imageArrayAdapter = new ArrayAdapter<Image>(this, android.R.layout.simple_expandable_list_item_1,(List<Image>)list);
+//        lvImage.setAdapter(imageArrayAdapter);
+
+        ImageAdapter adapter = new ImageAdapter(this, (List<Image>)list);
+        lvImage.setAdapter(adapter);
+
+//        lvImage.setOnItemClickListener(onItemClickListener);
+//        lvImage.setOnItemSelectedListener(onItemSelectedListener);
 
 
     }
