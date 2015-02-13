@@ -44,6 +44,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        System.out.println("system wrong....");
+        System.out.println("This is:" + thread.getName() + ",Message:" + ex.getMessage());
+        ex.printStackTrace();
     }
 }

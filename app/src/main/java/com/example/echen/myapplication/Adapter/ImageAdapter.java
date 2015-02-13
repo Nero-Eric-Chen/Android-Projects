@@ -1,9 +1,11 @@
 package com.example.echen.myapplication.Adapter;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -100,18 +102,33 @@ public class ImageAdapter extends BaseAdapter {
 //        viewHolder.txtDate.setText(date.toLocaleString());
             viewHolder.checkBox.setId(position);
             viewHolder.imageView.setImageDrawable(null);
-            Bitmap thumb = null;
-            if (null != viewHolder.imageView.getDrawable()) {
-                thumb = ((BitmapDrawable) viewHolder.imageView.getDrawable()).getBitmap();
+
+//            Bitmap thumb = null;
+//            if (null != viewHolder.imageView.getDrawable()) {
+//                thumb = ((BitmapDrawable) viewHolder.imageView.getDrawable()).getBitmap();
+//            }
+//            if (null != thumb)
+//            {
+//                thumb.recycle();
+//                thumb = null;
+//            }
+//            thumb = BitmapFactory.decodeFile(image.getPath(), null);
+//            if (null != thumb)
+//                viewHolder.imageView.setImageBitmap(thumb);
+
+            String[] projection = {
+                    "_data"    ,
+                    //"image_id"
+            };
+            Cursor cursor = MediaStore.Images.Thumbnails.queryMiniThumbnail(
+                    m_context.getContentResolver(), image.getId(),
+                    MediaStore.Images.Thumbnails.MINI_KIND,
+                    null );
+            if( cursor != null && cursor.getCount() > 0 ) {
+                cursor.moveToFirst();//**EDIT**
+                String uri = cursor.getString( cursor.getColumnIndex( MediaStore.Images.Thumbnails.DATA ) );
+                viewHolder.imageView.setImageURI(Uri.parse(uri));
             }
-            if (null != thumb)
-            {
-                thumb.recycle();
-                thumb = null;
-            }
-            thumb = BitmapFactory.decodeFile(image.getPath(), null);
-            if (null != thumb)
-                viewHolder.imageView.setImageBitmap(thumb);
         }
         catch (Exception e) {
             Log.d(TAG, e.getMessage());

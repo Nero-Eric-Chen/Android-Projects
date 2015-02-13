@@ -3,6 +3,7 @@ package com.echen.androidcommon.Media;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.MediaStore;
 
 import java.util.ArrayList;
@@ -50,6 +51,8 @@ public class ImageProvider implements IMediaProvider {
                             .getColumnIndexOrThrow(MediaStore.Images.Media.SIZE));
             Image image = new Image(id, title, displayName, mimeType,
                     path, size);
+            Uri uri = Uri.parse(path);
+
             list.add(image);
         }
         cursor.close();
