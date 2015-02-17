@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".FoldersActivity"></activity>
+        <activity android:name=".FilesActivity"></activity>
         <uses-sdk android:minSdkVersion="4" />
     </application>
     <!--往sdcard中写入数据的权限 -->

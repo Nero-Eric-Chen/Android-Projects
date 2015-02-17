@@ -1,7 +1,6 @@
 package com.echen.arthur;
 
 import android.app.Application;
-
 import com.echen.androidcommon.CrashHandler;
 
 /**

@@ -1,26 +1,28 @@
 package com.echen.arthur;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.ActionBarActivity;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.echen.androidcommon.Crypto.AESUtility;
-import com.echen.androidcommon.Media.Image;
+import com.echen.androidcommon.Media.MediaCenter;
 import com.echen.androidcommon.Model.FileSystemInfo;
 import com.echen.androidcommon.PathUtility;
 import com.echen.arthur.ActivityAdapter.FolderAdapter;
 import com.echen.arthur.Data.DataManager;
 import com.echen.arthur.Model.Folder;
+import com.echen.arthur.Utility.StringConstant;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,88 +30,123 @@ import java.util.List;
  * Created by echen on 2015/2/11.
  */
 public class FoldersActivity extends Activity {
+    private MediaCenter.MediaType category;
+    private FolderAdapter adapter;
+    private List<Folder> folderList = new ArrayList<>();
+    private final int MSG_LOADCOMPLETED = 1;
+    private ProgressDialog proProgressDialog = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_folders);
 //        setTitle("FoldersActivity");
 
-        List<Folder> folderList = new ArrayList<>();
-        List<Image> imageList = DataManager.getInstance().GetImages();
-        for(Image image : imageList)
-        {
-            String path = image.getPath();
-            if(path.isEmpty())
+        Intent intent = getIntent();
+        String strCategory = intent.getStringExtra(StringConstant.CATEGORY_IMAGE);
+        category = MediaCenter.MediaType.valueOf(strCategory);
+
+        GridView gridView = (GridView) findViewById(R.id.foldersContainer);
+        if (null != gridView) {
+            adapter = new FolderAdapter(this, folderList);
+            gridView.setAdapter(adapter);
+            gridView.setOnItemClickListener(gridViewItemClickListener);
+        }
+
+        proProgressDialog = new ProgressDialog(this);
+        proProgressDialog.show();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                GetContents(category);
+                Message msg = new Message();
+                msg.what = MSG_LOADCOMPLETED;
+                loadContentsEventHandler.sendMessage(msg);
+            }
+        });
+        thread.start();
+    }
+
+    private Handler loadContentsEventHandler = new Handler() {
+
+        /**
+         * Subclasses must implement this to receive messages.
+         *
+         * @param msg
+         */
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_LOADCOMPLETED: {
+                    adapter.notifyDataSetChanged();
+                    if (null != proProgressDialog)
+                        proProgressDialog.dismiss();
+                }
+                break;
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+    private void GetContents(MediaCenter.MediaType mediaType) {
+        List<?> list = DataManager.getInstance().getList(mediaType);
+        for (Object item : list) {
+            FileSystemInfo file = (FileSystemInfo) item;
+            if (null == file)
+                continue;
+            String path = file.getPath();
+            if (path.isEmpty())
                 continue;
             String parentPath = PathUtility.getParent(path);
             boolean isFind = false;
-            for(Folder folder : folderList)
-            {
-                if(parentPath.equalsIgnoreCase(folder.getPath()))
-                {
+
+            for (Folder folder : folderList) {
+                if (parentPath.equalsIgnoreCase(folder.getPath())) {
                     isFind = true;
-                    folder.getChildren().add(image);
+                    folder.getChildren().add(file);
                     break;
                 }
             }
-            if(!isFind) {
+            if (!isFind) {
                 Folder newFolder = new Folder(parentPath);
+                newFolder.getChildren().add(file);
                 folderList.add((newFolder));
-                newFolder.getChildren().add(image);
             }
-        }
-
-
-        GridView gridView = (GridView)findViewById(R.id.foldersContainer);
-        if (null != gridView) {
-            FolderAdapter adapter = new FolderAdapter(this, folderList);
-            gridView.setAdapter(adapter);
-            gridView.setOnItemClickListener(gridViewItemClickListener);
         }
     }
 
     private GridView.OnItemClickListener gridViewItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Folder folder = (Folder)parent.getAdapter().getItem(position);
-            if (folder.getChildren().size() > 0)
-            {
-                FileSystemInfo fileSystemInfo = folder.getChildren().get(0);
-                try {
-                    File fromFile = new File(fileSystemInfo.getPath());
-                    FileInputStream inputStream = new FileInputStream(fromFile);
-                    File sdCard = Environment.getExternalStorageDirectory();
-                    File directory = new File (sdCard.getAbsolutePath() +  "/Arhtur");
-                    if (!directory.exists()) {
-                        directory.mkdirs();
-                    }
-                    File toFile = new File(directory, fileSystemInfo.getDisplayName());
-                    boolean isCreated = false;
-                    if (!toFile.exists()) {
-                        isCreated = toFile.createNewFile();
-                    }
-                    FileOutputStream outputStream = new FileOutputStream(toFile);
-                    byte bt[] = new byte[1024];
-                    int c;
-                    while ((c = inputStream.read(bt)) > 0) {
-                        outputStream.write(bt, 0, c); //将内容写到新文件当中
-                        }
-                        inputStream.close();
-                        outputStream.close();
-                    AESUtility.encryptFile(toFile,".jpg", "ckk");
-                }catch (FileNotFoundException e)
-                {
-                    e.printStackTrace();
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-                finally {
-                    int i =0;
-                    i++;
-                }
-            }
+            Folder folder = (Folder) parent.getAdapter().getItem(position);
+            startActivity(new Intent(FoldersActivity.this, FilesActivity.class));
+//            if (folder.getChildren().size() > 0) {
+//                FileSystemInfo fileSystemInfo = folder.getChildren().get(0);
+//                try {
+//                    File fromFile = new File(fileSystemInfo.getPath());
+//                    FileInputStream inputStream = new FileInputStream(fromFile);
+//                    File sdCard = Environment.getExternalStorageDirectory();
+//                    File directory = new File(sdCard.getAbsolutePath() + "/Arhtur");
+//                    if (!directory.exists()) {
+//                        directory.mkdirs();
+//                    }
+////                    AESUtility.encryptFile(toFile,toFile.getPath(),".jpg", "ckk");
+////                    File decrptyedFile = AESUtility.encryptFile(fromFile,fileSystemInfo.getTitle(),".jpg",directory, "ckk");
+//
+//                    File decrptyedFile = new File(directory.getAbsolutePath() + "/A Star (15)-282228491.jpg");
+//                    AESUtility.decryptFile(decrptyedFile, "decrptyedFile", ".jpg", directory, "ckk");
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+////                catch (IOException e)
+////                {
+////                    e.printStackTrace();
+////                }
+//                finally {
+//                    int i = 0;
+//                    i++;
+//                }
+//            }
         }
     };
 }

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <GridView android:id="@+id/foldersContainer"
+    <GridView android:id="@+id/imagesContainer"
         android:layout_width="fill_parent" android:layout_height="fill_parent"
         android:numColumns="auto_fit"
         android:columnWidth="150dp"

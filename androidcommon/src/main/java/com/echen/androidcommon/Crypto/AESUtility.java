@@ -48,13 +48,13 @@ public class AESUtility {
         return cipher;
     }
 
-    public static File encryptFile(File sourceFile, String fileSuffix, String key) {
+    public static File encryptFile(File sourceFile, String prefix, String fileSuffix,File directory, String key) {
         File encryptedfile = null;
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
             inputStream = new FileInputStream(sourceFile);
-            encryptedfile = File.createTempFile(sourceFile.getName(), fileSuffix);
+            encryptedfile = File.createTempFile(prefix, fileSuffix,directory);
             outputStream = new FileOutputStream(encryptedfile);
             Cipher cipher = initAESCipher(key, Cipher.ENCRYPT_MODE);
             CipherInputStream cipherInputStream = new CipherInputStream(inputStream, cipher);
@@ -85,12 +85,17 @@ public class AESUtility {
         return encryptedfile;
     }
 
-    public static File decryptFile(File sourceFile, String fileSuffix, String key) {
+    public static File encryptFile(File sourceFile, String fileSuffix, String key) {
+        return encryptFile(sourceFile,sourceFile.getName(), fileSuffix, null, key);
+    }
+
+    public static File decryptFile(File sourceFile, String prefix, String fileSuffix,File directory, String key)
+    {
         File decryptedfile = null;
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
-            decryptedfile = File.createTempFile(sourceFile.getName(), fileSuffix);
+            decryptedfile = File.createTempFile(prefix, fileSuffix, directory);
             Cipher cipher = initAESCipher(key, Cipher.DECRYPT_MODE);
             inputStream = new FileInputStream(sourceFile);
             outputStream = new FileOutputStream(decryptedfile);
@@ -116,5 +121,9 @@ public class AESUtility {
             }
         }
         return decryptedfile;
+    }
+
+    public static File decryptFile(File sourceFile, String fileSuffix, String key) {
+        return decryptFile(sourceFile,sourceFile.getName(), fileSuffix, null, key);
     }
 }

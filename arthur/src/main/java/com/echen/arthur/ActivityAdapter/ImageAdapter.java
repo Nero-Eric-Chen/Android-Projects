@@ -1,46 +1,45 @@
 package com.echen.arthur.ActivityAdapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
-import com.echen.arthur.Model.Folder;
+
+import com.echen.androidcommon.Media.Image;
+import com.echen.arthur.Data.AsyncImageLoader;
 import com.echen.arthur.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by echen on 2015/2/12.
+ * Created by echen on 2015/2/17.
  */
-public class FolderAdapter extends BaseAdapter {
-    private final String TAG = "FolderAdapter";
+public class ImageAdapter extends BaseAdapter {
+    private final String TAG = "ImageAdapter";
     protected Context context = null;
-    protected List<Folder> folders = new ArrayList<>();
+    protected List<Image> images = new ArrayList<>();
     protected LayoutInflater layoutInflater = null;
+    protected AsyncImageLoader asyncImageLoader;
 
     public class ViewHolder
     {
-        int id;
-        TextView textView;
-        ImageView imageViewOne;
-        ImageView imageViewTwo;
-        ImageView imageViewThree;
-        ImageView imageViewFour;
+        ImageView imageView;
     }
 
-    public FolderAdapter(Context context, List<Folder> folders)
+    public ImageAdapter(Context context, List<Image> images)
     {
         this.context = context;
         if (null == context)
-            throw new NullPointerException("FolderAdapter: Passed Context is NULL!");
+            throw new NullPointerException("ImageAdapter: Passed Context is NULL!");
         this.layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.folders = folders;
+        this.images = images;
+        asyncImageLoader = new AsyncImageLoader();
     }
-
 
     /**
      * How many items are in the data set represented by this Adapter.
@@ -49,7 +48,7 @@ public class FolderAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return folders.size();
+        return images.size();
     }
 
     /**
@@ -61,7 +60,7 @@ public class FolderAdapter extends BaseAdapter {
      */
     @Override
     public Object getItem(int position) {
-        return folders.get(position);
+        return images.get(position);
     }
 
     /**
@@ -94,57 +93,33 @@ public class FolderAdapter extends BaseAdapter {
      * @return A View corresponding to the data at the specified position.
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         try {
             ViewHolder viewHolder;
-            if (folders.isEmpty())
+            if (images.isEmpty())
                 return convertView;
             if (null == convertView) {
-                convertView = layoutInflater.inflate(R.layout.folder_item_view,
+                convertView = layoutInflater.inflate(R.layout.image_item_view,
                         null);
                 viewHolder = new ViewHolder();
-                viewHolder.textView = (TextView)convertView.findViewById(R.id.txtFolderName);
-                viewHolder.imageViewOne = (ImageView) convertView
-                        .findViewById(R.id.imgOne);
-                viewHolder.imageViewTwo = (ImageView) convertView
-                        .findViewById(R.id.imgTwo);
-                viewHolder.imageViewThree = (ImageView) convertView
-                        .findViewById(R.id.imgThree);
-                viewHolder.imageViewFour = (ImageView) convertView
-                        .findViewById(R.id.imgFour);
+                viewHolder.imageView = (ImageView)convertView.findViewById(R.id.imgThumb);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            Folder folder = folders.get(position);
-            viewHolder.id = position;
-            viewHolder.textView.setText(folder.getName());
-            viewHolder.imageViewOne.setImageResource(android.R.drawable.ic_menu_search);
-            viewHolder.imageViewTwo.setImageResource(android.R.drawable.ic_menu_search);
-            viewHolder.imageViewThree.setImageResource(android.R.drawable.ic_menu_search);
-            viewHolder.imageViewFour.setImageResource(android.R.drawable.ic_menu_search);
-
-
-//            viewHolder.imageView.setId(position);
-//            viewHolder.txtName.setText(image.getDisplayName());
-//            viewHolder.txtSize.setText(String.valueOf(image.getSize()));
-//            viewHolder.checkBox.setId(position);
-//            viewHolder.imageView.setImageDrawable(null);
-//
-//            String[] projection = {
-//                    "_data"    ,
-//                    //"image_id"
-//            };
-//            Cursor cursor = MediaStore.Images.Thumbnails.queryMiniThumbnail(
-//                    m_context.getContentResolver(), image.getId(),
-//                    MediaStore.Images.Thumbnails.MINI_KIND,
-//                    null );
-//            if( cursor != null && cursor.getCount() > 0 ) {
-//                cursor.moveToFirst();//**EDIT**
-//                String uri = cursor.getString( cursor.getColumnIndex( MediaStore.Images.Thumbnails.DATA ) );
-//                viewHolder.imageView.setImageURI(Uri.parse(uri));
-//            }
+            Image image = images.get(position);
+            Drawable cachedDrawable = asyncImageLoader.loadDrawable(context, image.getPath(), viewHolder.imageView, new AsyncImageLoader.ImageCallback() {
+                        @Override
+                        public void imageLoaded(Drawable imageDrawable, String imageUrl, ImageView imageView) {
+                            imageView.setImageDrawable(imageDrawable);
+                        }
+                    });
+            if (cachedDrawable == null) {
+                viewHolder.imageView.setImageResource(android.R.drawable.ic_menu_search);
+            } else {
+                viewHolder.imageView.setImageDrawable(cachedDrawable);
+            }
         }
         catch (Exception e) {
             Log.d(TAG, e.getMessage());

@@ -3,27 +3,25 @@ package com.echen.arthur;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.echen.androidcommon.Media.Image;
+import android.view.View;
+import com.echen.androidcommon.Media.MediaCenter;
 import com.echen.arthur.Data.DataManager;
-
-import java.io.Serializable;
+import com.echen.arthur.Utility.StringConstant;
 
 
 public class MainActivity extends Activity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         DataManager.getInstance().init(getApplicationContext());
-        Intent intent = new Intent(MainActivity.this, FoldersActivity.class);
-//        intent.putExtra("Images", (Serializable)DataManager.getInstance().GetImages());
-        startActivity(intent);
+
+//        LoadDataAsyncTask loadDataAsyncTask = new LoadDataAsyncTask(proProgressDialog);
+//        loadDataAsyncTask.execute();
     }
 
     @Override
@@ -53,5 +51,26 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onImagesClick(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, FoldersActivity.class);
+        intent.putExtra(StringConstant.CATEGORY_IMAGE, MediaCenter.MediaType.Image.toString());
+        startActivity(intent);
+    }
+
+    public void onVideosClick(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, FoldersActivity.class);
+        intent.putExtra(StringConstant.CATEGORY_IMAGE, MediaCenter.MediaType.Video.toString());
+        startActivity(intent);
+    }
+
+    public void onAudiosClick(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, FoldersActivity.class);
+        intent.putExtra(StringConstant.CATEGORY_IMAGE, MediaCenter.MediaType.Audio.toString());
+        startActivity(intent);
     }
 }
