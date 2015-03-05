@@ -1,6 +1,9 @@
 package com.echen.arthur.ActivityAdapter;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +11,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.echen.arthur.Model.Folder;
+
+import com.echen.androidcommon.Model.File;
+import com.echen.androidcommon.Model.FileSystemInfo;
+import com.echen.androidcommon.Model.Folder;
 import com.echen.arthur.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +28,11 @@ public class FolderAdapter extends BaseAdapter {
     protected Context context = null;
     protected List<Folder> folders = new ArrayList<>();
     protected LayoutInflater layoutInflater = null;
+    protected String[] projection = {
+            "_data"
+    };
 
-    public class ViewHolder
-    {
+    public class ViewHolder {
         int id;
         TextView textView;
         ImageView imageViewOne;
@@ -32,12 +41,11 @@ public class FolderAdapter extends BaseAdapter {
         ImageView imageViewFour;
     }
 
-    public FolderAdapter(Context context, List<Folder> folders)
-    {
+    public FolderAdapter(Context context, List<Folder> folders) {
         this.context = context;
         if (null == context)
             throw new NullPointerException("FolderAdapter: Passed Context is NULL!");
-        this.layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.folders = folders;
     }
 
@@ -103,7 +111,7 @@ public class FolderAdapter extends BaseAdapter {
                 convertView = layoutInflater.inflate(R.layout.folder_item_view,
                         null);
                 viewHolder = new ViewHolder();
-                viewHolder.textView = (TextView)convertView.findViewById(R.id.txtFolderName);
+                viewHolder.textView = (TextView) convertView.findViewById(R.id.txtFolderName);
                 viewHolder.imageViewOne = (ImageView) convertView
                         .findViewById(R.id.imgOne);
                 viewHolder.imageViewTwo = (ImageView) convertView
@@ -119,34 +127,41 @@ public class FolderAdapter extends BaseAdapter {
 
             Folder folder = folders.get(position);
             viewHolder.id = position;
-            viewHolder.textView.setText(folder.getName());
-            viewHolder.imageViewOne.setImageResource(android.R.drawable.ic_menu_search);
-            viewHolder.imageViewTwo.setImageResource(android.R.drawable.ic_menu_search);
-            viewHolder.imageViewThree.setImageResource(android.R.drawable.ic_menu_search);
-            viewHolder.imageViewFour.setImageResource(android.R.drawable.ic_menu_search);
+            viewHolder.textView.setText(folder.getDisplayName());
+//            viewHolder.imageViewOne.setImageResource(android.R.drawable.ic_menu_search);
+//            viewHolder.imageViewTwo.setImageResource(android.R.drawable.ic_menu_search);
+//            viewHolder.imageViewThree.setImageResource(android.R.drawable.ic_menu_search);
+//            viewHolder.imageViewFour.setImageResource(android.R.drawable.ic_menu_search);
 
-
-//            viewHolder.imageView.setId(position);
-//            viewHolder.txtName.setText(image.getDisplayName());
-//            viewHolder.txtSize.setText(String.valueOf(image.getSize()));
-//            viewHolder.checkBox.setId(position);
-//            viewHolder.imageView.setImageDrawable(null);
-//
-//            String[] projection = {
-//                    "_data"    ,
-//                    //"image_id"
-//            };
-//            Cursor cursor = MediaStore.Images.Thumbnails.queryMiniThumbnail(
-//                    m_context.getContentResolver(), image.getId(),
-//                    MediaStore.Images.Thumbnails.MINI_KIND,
-//                    null );
-//            if( cursor != null && cursor.getCount() > 0 ) {
-//                cursor.moveToFirst();//**EDIT**
-//                String uri = cursor.getString( cursor.getColumnIndex( MediaStore.Images.Thumbnails.DATA ) );
-//                viewHolder.imageView.setImageURI(Uri.parse(uri));
-//            }
-        }
-        catch (Exception e) {
+            int i = 0;
+            ArrayList<ImageView> imageViews = new ArrayList<>();
+            imageViews.add(viewHolder.imageViewOne);
+            imageViews.add(viewHolder.imageViewTwo);
+            imageViews.add(viewHolder.imageViewThree);
+            imageViews.add(viewHolder.imageViewFour);
+            for (FileSystemInfo fileSystemInfo : folder.getChildren()) {
+                if (4 == i)
+                    break;
+                if (!(fileSystemInfo instanceof File))
+                    continue;
+                File file = (File) fileSystemInfo;
+                if (null == file)
+                    continue;
+                Cursor cursor = MediaStore.Images.Thumbnails.queryMiniThumbnail(
+                        context.getContentResolver(), file.getId(),
+                        MediaStore.Images.Thumbnails.MINI_KIND,
+                        null);
+                if (cursor != null && cursor.getCount() > 0) {
+                    cursor.moveToFirst();//**EDIT**
+                    String uri = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Thumbnails.DATA));
+                    ImageView imageView = imageViews.get(i);
+                    if (null != imageView) {
+                        imageView.setImageURI(Uri.parse(uri));
+                        i++;
+                    }
+                }
+            }
+        } catch (Exception e) {
             Log.d(TAG, e.getMessage());
         }
         return convertView;

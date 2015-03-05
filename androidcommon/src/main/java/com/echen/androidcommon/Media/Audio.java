@@ -1,11 +1,12 @@
 package com.echen.androidcommon.Media;
 
+import com.echen.androidcommon.Model.File;
 import com.echen.androidcommon.Model.FileSystemInfo;
 
 /**
  * Created by echen on 2015/1/27.
  */
-public class Audio extends FileSystemInfo {
+public class Audio extends File {
 
 //    private int id;
 //    private String title;

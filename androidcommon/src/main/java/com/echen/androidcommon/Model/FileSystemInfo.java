@@ -1,9 +1,11 @@
 package com.echen.androidcommon.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by echen on 2015/2/12.
  */
-public class FileSystemInfo {
+public class FileSystemInfo implements Serializable {
     protected int id;
     protected String title;
     protected String displayName;

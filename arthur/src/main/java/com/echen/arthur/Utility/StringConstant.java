@@ -5,4 +5,7 @@ package com.echen.arthur.Utility;
  */
 public class StringConstant {
     public static final String CATEGORY_IMAGE = "CATEGORY_IMAGE";
+    public static final String FOLDER = "FOLDER";
+    public static final String FOLDER_ID = "FOLDER_ID";
+    public static final String IMAGES = "IMAGES";
 }

@@ -2,12 +2,13 @@ package com.echen.androidcommon.Media;
 
 import android.graphics.Bitmap;
 
+import com.echen.androidcommon.Model.File;
 import com.echen.androidcommon.Model.FileSystemInfo;
 
 /**
  * Created by echen on 2015/1/27.
  */
-public class Image extends FileSystemInfo {
+public class Image extends File {
 //    private int id;
 //    private String title;
 //    private String displayName;

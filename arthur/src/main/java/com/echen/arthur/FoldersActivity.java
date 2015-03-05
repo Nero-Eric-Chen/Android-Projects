@@ -4,25 +4,20 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.echen.androidcommon.Crypto.AESUtility;
 import com.echen.androidcommon.Media.MediaCenter;
 import com.echen.androidcommon.Model.FileSystemInfo;
 import com.echen.androidcommon.PathUtility;
 import com.echen.arthur.ActivityAdapter.FolderAdapter;
 import com.echen.arthur.Data.DataManager;
-import com.echen.arthur.Model.Folder;
+import com.echen.androidcommon.Model.Folder;
 import com.echen.arthur.Utility.StringConstant;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,7 +114,12 @@ public class FoldersActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Folder folder = (Folder) parent.getAdapter().getItem(position);
-            startActivity(new Intent(FoldersActivity.this, FilesActivity.class));
+            Intent intent = new Intent(FoldersActivity.this, FilesActivity.class);
+            Bundle bundleObject = new Bundle();
+            bundleObject.putSerializable(StringConstant.IMAGES, (ArrayList<?>)folder.getChildren());
+            intent.putExtras(bundleObject);
+            startActivity(intent);
+
 //            if (folder.getChildren().size() > 0) {
 //                FileSystemInfo fileSystemInfo = folder.getChildren().get(0);
 //                try {
