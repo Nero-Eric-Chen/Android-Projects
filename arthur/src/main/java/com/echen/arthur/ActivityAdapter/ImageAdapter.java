@@ -1,6 +1,7 @@
 package com.echen.arthur.ActivityAdapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.echen.androidcommon.Media.Image;
+import com.echen.androidcommon.Utility.ImageUtility;
 import com.echen.arthur.Data.AsyncImageLoader;
 import com.echen.arthur.R;
 
@@ -119,6 +121,10 @@ public class ImageAdapter extends BaseAdapter {
                         public void imageLoaded(Drawable imageDrawable, String imageUrl) {
                             ImageView imageViewByTag = (ImageView)m_parent.findViewWithTag(imageUrl);
                             if (null != imageViewByTag) {
+//                                Bitmap bitmap = ImageUtility.drawableToBitmap(imageDrawable);
+//                                Bitmap scaledBitmap = ImageUtility.centerSquareScaleBitmap(bitmap, R.dimen.image_thumbnail_width);
+//                                imageViewByTag.setImageBitmap(scaledBitmap);
+
                                 imageViewByTag.setImageDrawable(imageDrawable);
                             }else {
                                 // load image failed from Internet

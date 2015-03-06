@@ -6,12 +6,7 @@ import android.os.Bundle;
 import android.widget.GridView;
 
 import com.echen.androidcommon.Media.Image;
-import com.echen.androidcommon.Media.MediaCenter;
-import com.echen.androidcommon.Model.FileSystemInfo;
-import com.echen.androidcommon.Model.Folder;
-import com.echen.androidcommon.PathUtility;
 import com.echen.arthur.ActivityAdapter.ImageAdapter;
-import com.echen.arthur.Data.DataManager;
 import com.echen.arthur.Utility.StringConstant;
 
 import java.util.ArrayList;

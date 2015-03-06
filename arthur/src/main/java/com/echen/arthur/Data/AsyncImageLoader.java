@@ -32,7 +32,7 @@ public class AsyncImageLoader {
     private BlockingQueue queue;
     private ThreadPoolExecutor executor;
     private final int minSideLength = -1;
-    private final int maxNumOfPixels = 96 * 96;
+    private final int maxNumOfPixels = 256 * 256;
 
     public interface ImageCallback {
         public void imageLoaded(Drawable imageDrawable, String imageUrl);

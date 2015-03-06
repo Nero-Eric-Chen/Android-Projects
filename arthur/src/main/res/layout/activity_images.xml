@@ -14,11 +14,11 @@
         <!--android:stretchMode="columnWidth"/>-->
     <GridView android:id="@+id/imagesContainer"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:numColumns="auto_fit"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
-        android:columnWidth="96dp"
+        android:verticalSpacing="2dp"
+        android:horizontalSpacing="2dp"
+        android:columnWidth="@dimen/image_thumbnail_width"
         android:stretchMode="columnWidth"
         android:gravity="center"
         />

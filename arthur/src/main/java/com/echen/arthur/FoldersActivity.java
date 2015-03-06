@@ -12,7 +12,7 @@ import android.widget.GridView;
 
 import com.echen.androidcommon.Media.MediaCenter;
 import com.echen.androidcommon.Model.FileSystemInfo;
-import com.echen.androidcommon.PathUtility;
+import com.echen.androidcommon.Utility.PathUtility;
 import com.echen.arthur.ActivityAdapter.FolderAdapter;
 import com.echen.arthur.Data.DataManager;
 import com.echen.androidcommon.Model.Folder;
