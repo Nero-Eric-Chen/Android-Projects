@@ -95,6 +95,7 @@ public class ImageAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         try {
+            final ViewGroup m_parent = parent;
             ViewHolder viewHolder;
             if (images.isEmpty())
                 return convertView;
@@ -107,12 +108,21 @@ public class ImageAdapter extends BaseAdapter {
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-
             Image image = images.get(position);
-            Drawable cachedDrawable = asyncImageLoader.loadDrawable(context, image.getPath(), viewHolder.imageView, new AsyncImageLoader.ImageCallback() {
+            viewHolder.imageView.setId(position);
+            viewHolder.imageView.setTag(image.getPath());
+
+            System.out.println("position " + position + " convertView " + convertView.toString() + " imageView " + viewHolder.imageView.toString());
+
+            Drawable cachedDrawable = asyncImageLoader.loadDrawable(context, image.getId(), image.getPath(), new AsyncImageLoader.ImageCallback() {
                         @Override
-                        public void imageLoaded(Drawable imageDrawable, String imageUrl, ImageView imageView) {
-                            imageView.setImageDrawable(imageDrawable);
+                        public void imageLoaded(Drawable imageDrawable, String imageUrl) {
+                            ImageView imageViewByTag = (ImageView)m_parent.findViewWithTag(imageUrl);
+                            if (null != imageViewByTag) {
+                                imageViewByTag.setImageDrawable(imageDrawable);
+                            }else {
+                                // load image failed from Internet
+                            }
                         }
                     });
             if (cachedDrawable == null) {

@@ -160,6 +160,7 @@ public class FolderAdapter extends BaseAdapter {
                         i++;
                     }
                 }
+                cursor.close();
             }
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());

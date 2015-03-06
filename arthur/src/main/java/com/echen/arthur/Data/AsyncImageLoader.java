@@ -2,7 +2,11 @@ package com.echen.arthur.Data;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import java.lang.ref.SoftReference;
@@ -17,6 +21,8 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.widget.ImageView;
 
+import com.echen.androidcommon.Utility.ImageUtility;
+
 /**
  * Created by echen on 2015/2/17.
  */
@@ -25,9 +31,11 @@ public class AsyncImageLoader {
     private HashMap<String, SoftReference<Drawable>> imageCache;
     private BlockingQueue queue;
     private ThreadPoolExecutor executor;
+    private final int minSideLength = -1;
+    private final int maxNumOfPixels = 96 * 96;
 
     public interface ImageCallback {
-        public void imageLoaded(Drawable imageDrawable, String imageUrl, ImageView imageView);
+        public void imageLoaded(Drawable imageDrawable, String imageUrl);
     }
 
     public AsyncImageLoader() {
@@ -36,7 +44,7 @@ public class AsyncImageLoader {
         executor = new ThreadPoolExecutor(1, 50, 180, TimeUnit.SECONDS, queue);
     }
 
-    public Drawable loadDrawable(final Context context, final String imageUrl, final ImageView imageView, final ImageCallback imageCallback) {
+    public Drawable loadDrawable(final Context context,final int imageId, final String imageUrl, final ImageCallback imageCallback) {
         if (imageCache.containsKey(imageUrl)) {
             SoftReference<Drawable> softReference = imageCache.get(imageUrl);
             Drawable drawable = softReference.get();
@@ -46,14 +54,18 @@ public class AsyncImageLoader {
         final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                imageCallback.imageLoaded((Drawable) msg.obj, imageUrl, imageView);
+                imageCallback.imageLoaded((Drawable) msg.obj, imageUrl);
             }
         };
 
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                Drawable drawable = loadImageFromUrl(context, imageUrl);
+                Drawable drawable = loadThumbnailFromUrl(context, imageId, imageUrl);
+                if (null == drawable)
+                {
+                    drawable = autoLoadImageFromUrl(imageUrl);
+                }
                 imageCache.put(imageUrl, new SoftReference<Drawable>(drawable));
                 Message msg = handler.obtainMessage(0, drawable);
                 handler.sendMessage(msg);
@@ -63,8 +75,23 @@ public class AsyncImageLoader {
         return null;
     }
 
-    public static Drawable loadImageFromUrl(Context context, String imageUrl) {
+    public Drawable loadImageFromUrl(String imageUrl) {
         Drawable drawable = Drawable.createFromPath(imageUrl);
+        return drawable;
+    }
+
+    public Drawable autoLoadImageFromUrl(String imageUrl){
+        Drawable drawable = null;
+        Bitmap bmp = ImageUtility.autoLoadImageFromUrl(imageUrl, minSideLength, maxNumOfPixels);
+        drawable = new BitmapDrawable(Resources.getSystem(),bmp);
+        return drawable;
+    }
+
+    public Drawable loadThumbnailFromUrl(Context context,int imageId, String imageUrl){
+        Drawable drawable = null;
+        String thumbnailUrl = ImageUtility.getThumbnailUrl(context.getContentResolver(), imageId, MediaStore.Images.Thumbnails.MINI_KIND);
+        if (!thumbnailUrl.isEmpty())
+            drawable = Drawable.createFromPath(thumbnailUrl);
         return drawable;
     }
 }

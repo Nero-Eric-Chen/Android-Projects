@@ -1,4 +1,4 @@
-package com.echen.androidcommon;
+package com.echen.androidcommon.Utility;
 
 import junit.framework.Test;
 

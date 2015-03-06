@@ -14,11 +14,6 @@ public class MediaCenter {
         Audio
     }
 
-    public static void getImageThumbnail(Context context)
-    {
-//        MediaStore.Images.Thumbnails.queryMiniThumbnail(context.getContentResolver(), )
-    }
-
     public static IMediaProvider CreateMediaProvider(Context context, MediaType mediaType)
     {
         IMediaProvider iMediaProvider = null;

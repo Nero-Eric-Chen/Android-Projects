@@ -12,6 +12,7 @@ public class FileSystemInfo implements Serializable {
     protected String mimeType;
     protected String path;
     protected long size;
+    protected Boolean isSelected = null;
 
     public FileSystemInfo(){}
 
@@ -73,4 +74,8 @@ public class FileSystemInfo implements Serializable {
     public void setSize(long size) {
         this.size = size;
     }
+
+    public Boolean getIsSelected() { return isSelected; }
+
+    public void setIsSelected(Boolean isSelected) { this.isSelected = isSelected; }
 }
